@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<title>Explication du Code — Projet Next.js</title>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Inter:wght@400;600;800&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0f1117;color:#e2e8f0;font-family:'Inter',sans-serif;padding:30px}
+h1{text-align:center;font-size:2rem;font-weight:800;background:linear-gradient(90deg,#6ee7f7,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
+.subtitle{text-align:center;color:#94a3b8;margin-bottom:36px;font-size:1rem}
+.section{background:#1e2333;border-radius:16px;margin-bottom:28px;overflow:hidden;border:1px solid #2d3748}
+.section-header{display:flex;align-items:center;gap:12px;padding:14px 20px;background:#252d42;border-bottom:1px solid #2d3748}
+.file-badge{background:#6366f1;color:#fff;padding:3px 10px;border-radius:20px;font-size:0.75rem;font-weight:600;font-family:'Fira Code',monospace}
+.section-title{font-weight:700;font-size:1rem;color:#e2e8f0}
+.content{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.code-block{padding:20px;border-right:1px solid #2d3748}
+.code-block pre{font-family:'Fira Code',monospace;font-size:0.78rem;line-height:1.7;color:#cdd9f5;overflow-x:auto}
+.keyword{color:#a78bfa}
+.string{color:#6ee7b7}
+.comment{color:#64748b;font-style:italic}
+.func{color:#67e8f9}
+.tag{color:#f472b6}
+.attr{color:#fbbf24}
+.explain-block{padding:20px;background:#181f30}
+.explain-block h3{color:#a78bfa;font-size:0.85rem;font-weight:700;margin-bottom:12px;text-transform:uppercase;letter-spacing:.08em}
+.point{display:flex;gap:10px;margin-bottom:10px;align-items:flex-start}
+.point .icon{font-size:1rem;flex-shrink:0;margin-top:2px}
+.point p{font-size:0.83rem;color:#94a3b8;line-height:1.5}
+.point strong{color:#e2e8f0}
+.arch{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding:20px}
+.arch-card{background:#252d42;border-radius:12px;padding:16px;text-align:center;border:1px solid #2d3748}
+.arch-card .emoji{font-size:1.6rem;margin-bottom:8px}
+.arch-card h4{color:#a78bfa;font-size:0.8rem;font-weight:700;margin-bottom:4px}
+.arch-card p{font-size:0.72rem;color:#64748b;line-height:1.4}
+.tests-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:20px}
+.test-card{background:#252d42;border-radius:10px;padding:14px;border-left:3px solid #6ee7b7}
+.test-card h4{color:#6ee7b7;font-size:0.82rem;font-weight:700;margin-bottom:6px}
+.test-card p{font-size:0.78rem;color:#94a3b8;line-height:1.4}
+.pass{color:#6ee7b7;font-weight:700}
+footer{text-align:center;margin-top:20px;color:#475569;font-size:0.78rem}
+</style>
+</head>
+<body>
+
+<h1>📦 Projet d'Intégration — Explication du Code</h1>
+<p class="subtitle">Next.js 14 · React 18 · Devcontainer · Jest</p>
+
+<!-- ARCHITECTURE -->
+<div class="section">
+  <div class="section-header">
+    <span class="file-badge">Architecture</span>
+    <span class="section-title">Structure du projet</span>
+  </div>
+  <div class="arch">
+    <div class="arch-card">
+      <div class="emoji">📄</div>
+      <h4>pages/index.js</h4>
+      <p>Page d'accueil avec liens vers les autres pages</p>
+    </div>
+    <div class="arch-card">
+      <div class="emoji">ℹ️</div>
+      <h4>pages/about.js</h4>
+      <p>Page explicative sur Next.js et Devcontainer</p>
+    </div>
+    <div class="arch-card">
+      <div class="emoji">📬</div>
+      <h4>pages/contact.js</h4>
+      <p>Formulaire React qui appelle l'API avec fetch</p>
+    </div>
+    <div class="arch-card">
+      <div class="emoji">⚙️</div>
+      <h4>pages/api/contact.js</h4>
+      <p>API Route Next.js — traite le POST et répond en JSON</p>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE ACCUEIL -->
+<div class="section">
+  <div class="section-header">
+    <span class="file-badge">pages/index.js</span>
+    <span class="section-title">Page d'Accueil</span>
+  </div>
+  <div class="content">
+    <div class="code-block">
+      <pre><span class="keyword">import</span> Link <span class="keyword">from</span> <span class="string">'next/link'</span>
+<span class="keyword">import</span> styles <span class="keyword">from</span> <span class="string">'../styles/Home.module.css'</span>
+
+<span class="keyword">export default function</span> <span class="func">Home</span>() {
+  <span class="keyword">return</span> (
+    <span class="tag">&lt;div</span> <span class="attr">className</span>={styles.container}<span class="tag">&gt;</span>
+      <span class="tag">&lt;main</span> <span class="attr">className</span>={styles.main}<span class="tag">&gt;</span>
+        <span class="tag">&lt;h1&gt;</span>Next.js + Devcontainer<span class="tag">&lt;/h1&gt;</span>
+        <span class="tag">&lt;p&gt;</span>Projet d'intégration...<span class="tag">&lt;/p&gt;</span>
+
+        <span class="tag">&lt;div</span> <span class="attr">className</span>={styles.grid}<span class="tag">&gt;</span>
+          <span class="tag">&lt;Link</span> <span class="attr">href</span>=<span class="string">"/about"</span><span class="tag">&gt;</span>
+            <span class="tag">&lt;h2&gt;</span>À propos<span class="tag">&lt;/h2&gt;</span>
+          <span class="tag">&lt;/Link&gt;</span>
+          <span class="tag">&lt;Link</span> <span class="attr">href</span>=<span class="string">"/contact"</span><span class="tag">&gt;</span>
+            <span class="tag">&lt;h2&gt;</span>Contact<span class="tag">&lt;/h2&gt;</span>
+          <span class="tag">&lt;/Link&gt;</span>
+        <span class="tag">&lt;/div&gt;</span>
+      <span class="tag">&lt;/main&gt;</span>
+    <span class="tag">&lt;/div&gt;</span>
+  )
+}</pre>
+    </div>
+    <div class="explain-block">
+      <h3>💡 Explications</h3>
+      <div class="point"><span class="icon">🔗</span><p><strong>import Link</strong> — Composant de navigation Next.js, change de page sans rechargement complet (SPA)</p></div>
+      <div class="point"><span class="icon">🎨</span><p><strong>CSS Modules</strong> — Les styles sont isolés par composant, pas de conflits entre pages</p></div>
+      <div class="point"><span class="icon">📦</span><p><strong>export default</strong> — Next.js détecte automatiquement ce composant comme la page <code>/</code></p></div>
+      <div class="point"><span class="icon">🗂️</span><p><strong>Grid de liens</strong> — Deux cartes cliquables qui naviguent vers <code>/about</code> et <code>/contact</code></p></div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE CONTACT -->
+<div class="section">
+  <div class="section-header">
+    <span class="file-badge">pages/contact.js</span>
+    <span class="section-title">Formulaire de Contact (React + API)</span>
+  </div>
+  <div class="content">
+    <div class="code-block">
+      <pre><span class="keyword">import</span> { useState } <span class="keyword">from</span> <span class="string">'react'</span>
+
+<span class="keyword">export default function</span> <span class="func">Contact</span>() {
+  <span class="comment">// États React pour stocker les valeurs</span>
+  <span class="keyword">const</span> [name, setName] = <span class="func">useState</span>(<span class="string">''</span>)
+  <span class="keyword">const</span> [message, setMessage] = <span class="func">useState</span>(<span class="string">''</span>)
+  <span class="keyword">const</span> [response, setResponse] = <span class="func">useState</span>(<span class="keyword">null</span>)
+
+  <span class="comment">// Appel API au clic sur "Envoyer"</span>
+  <span class="keyword">const</span> <span class="func">submitForm</span> = <span class="keyword">async</span> (e) =&gt; {
+    e.<span class="func">preventDefault</span>()
+    <span class="keyword">const</span> res = <span class="keyword">await</span> <span class="func">fetch</span>(<span class="string">'/api/contact'</span>, {
+      method: <span class="string">'POST'</span>,
+      headers: { <span class="string">'Content-Type'</span>: <span class="string">'application/json'</span> },
+      body: <span class="func">JSON.stringify</span>({ name, message })
+    })
+    <span class="keyword">const</span> data = <span class="keyword">await</span> res.<span class="func">json</span>()
+    <span class="func">setResponse</span>(data) <span class="comment">// Affiche la réponse</span>
+  }
+
+  <span class="keyword">return</span> (
+    <span class="tag">&lt;form</span> <span class="attr">onSubmit</span>={submitForm}<span class="tag">&gt;</span>
+      <span class="tag">&lt;input</span> <span class="attr">value</span>={name}
+        <span class="attr">onChange</span>={e =&gt; <span class="func">setName</span>(e.target.value)} <span class="tag">/&gt;</span>
+      <span class="tag">&lt;textarea</span> <span class="attr">value</span>={message}
+        <span class="attr">onChange</span>={e =&gt; <span class="func">setMessage</span>(e.target.value)} <span class="tag">/&gt;</span>
+      <span class="tag">&lt;button&gt;</span>Envoyer<span class="tag">&lt;/button&gt;</span>
+      {response &amp;&amp; <span class="tag">&lt;div&gt;</span>{response.reply}<span class="tag">&lt;/div&gt;</span>}
+    <span class="tag">&lt;/form&gt;</span>
+  )
+}</pre>
+    </div>
+    <div class="explain-block">
+      <h3>💡 Explications</h3>
+      <div class="point"><span class="icon">🔄</span><p><strong>useState</strong> — Hook React qui crée des variables réactives : quand elles changent, l'interface se met à jour automatiquement</p></div>
+      <div class="point"><span class="icon">🌐</span><p><strong>fetch('/api/contact')</strong> — Appel HTTP POST vers l'API Next.js intégrée, envoie name + message en JSON</p></div>
+      <div class="point"><span class="icon">⏳</span><p><strong>async/await</strong> — Attend la réponse du serveur sans bloquer l'interface (programmation asynchrone)</p></div>
+      <div class="point"><span class="icon">✅</span><p><strong>response &amp;&amp; ...</strong> — Affiche la réponse API seulement si elle existe (rendu conditionnel React)</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- API ROUTE -->
+<div class="section">
+  <div class="section-header">
+    <span class="file-badge">pages/api/contact.js</span>
+    <span class="section-title">API Route Next.js — Côté Serveur</span>
+  </div>
+  <div class="content">
+    <div class="code-block">
+      <pre><span class="keyword">export default function</span> <span class="func">handler</span>(req, res) {
+  <span class="comment">// Accepte uniquement les requêtes POST</span>
+  <span class="keyword">if</span> (req.method !== <span class="string">'POST'</span>) {
+    <span class="keyword">return</span> res.<span class="func">status</span>(405)
+      .<span class="func">json</span>({ error: <span class="string">'Method Not Allowed'</span> })
+  }
+
+  <span class="comment">// Récupère les données envoyées</span>
+  <span class="keyword">const</span> { name, message } = req.body
+
+  <span class="comment">// Valide que les champs ne sont pas vides</span>
+  <span class="keyword">if</span> (!name || !message) {
+    <span class="keyword">return</span> res.<span class="func">status</span>(400)
+      .<span class="func">json</span>({ error: <span class="string">'Champs manquants'</span> })
+  }
+
+  <span class="comment">// Répond avec succès en JSON</span>
+  <span class="keyword">return</span> res.<span class="func">status</span>(200).<span class="func">json</span>({
+    success: <span class="keyword">true</span>,
+    reply: <span class="string">`Merci ${name} ! Message reçu.`</span>,
+    received: { name, message }
+  })
+}</pre>
+    </div>
+    <div class="explain-block">
+      <h3>💡 Explications</h3>
+      <div class="point"><span class="icon">🛡️</span><p><strong>Vérification method</strong> — Si ce n'est pas un POST, on retourne erreur 405. Bonne pratique de sécurité API</p></div>
+      <div class="point"><span class="icon">📥</span><p><strong>req.body</strong> — Contient les données JSON envoyées par le formulaire (name, message)</p></div>
+      <div class="point"><span class="icon">🔒</span><p><strong>Validation</strong> — Vérifie que les champs existent avant de traiter (protection contre les données vides)</p></div>
+      <div class="point"><span class="icon">📤</span><p><strong>res.status(200).json()</strong> — Retourne une réponse HTTP 200 OK avec un objet JSON</p></div>
+      <div class="point"><span class="icon">✨</span><p><strong>Template literal</strong> — <code>`Merci ${name}`</code> insère dynamiquement le nom dans la réponse</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- TESTS -->
+<div class="section">
+  <div class="section-header">
+    <span class="file-badge">__tests__/</span>
+    <span class="section-title">Tests Automatisés avec Jest</span>
+  </div>
+  <div class="tests-grid">
+    <div class="test-card">
+      <h4>🏠 home.test.js</h4>
+      <p>Vérifie que la page d'accueil affiche le titre <strong>"Next.js + Devcontainer"</strong> et la description. Utilise <code>render()</code> + <code>screen.getByText()</code>.</p>
+      <p style="margin-top:8px"><span class="pass">✅ PASS</span> — 9ms</p>
+    </div>
+    <div class="test-card">
+      <h4>📬 contact-ui.test.js</h4>
+      <p>Simule un utilisateur qui tape son nom, son message, clique "Envoyer" et vérifie que la réponse <strong>"Merci Alice"</strong> apparaît. Mock de <code>fetch</code>.</p>
+      <p style="margin-top:8px"><span class="pass">✅ PASS</span> — 59ms</p>
+    </div>
+    <div class="test-card">
+      <h4>⚙️ api/contact.test.js</h4>
+      <p>Teste l'API directement avec une fausse requête POST et vérifie que la réponse JSON contient <code>success: true</code> et le bon message.</p>
+      <p style="margin-top:8px"><span class="pass">✅ PASS</span> — 4ms</p>
+    </div>
+    <div class="test-card">
+      <h4>🧪 sample.test.js</h4>
+      <p>Test de base pour vérifier que l'environnement Jest fonctionne correctement. Rend un <code>&lt;div&gt;hello&lt;/div&gt;</code> et vérifie qu'il est présent.</p>
+      <p style="margin-top:8px"><span class="pass">✅ PASS</span> — 3ms</p>
+    </div>
+  </div>
+</div>
+
+<footer>Projet d'intégration — Next.js + Devcontainer | 4 tests passés ✅ | npm run dev → http://localhost:3000</footer>
+</body>
+</html>
